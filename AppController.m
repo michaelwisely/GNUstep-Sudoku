@@ -81,7 +81,9 @@
 -(void) presentOpenMenu: (id)sender
 {
   //Currently you must open from the gamefiles folder. is there a way it can
-  //  pull the logs from /Resources instead?
+  //pull the logs from /Resources instead?
+  //  Well, saves make it a little different. They just open the files 
+  //  they were working on. They don't really NEED to open the blanks.
 
   NSMutableString* path;
 
@@ -93,12 +95,65 @@
 
   [fileSelector runModalForDirectory: nil
 		file: nil 
-		types: nil];
+		types: [NSArray arrayWithObjects:
+				  @"novice",
+				@"intermediate",
+				@"expert",
+				@"sudoku",
+				nil]];
 
   path = [NSMutableString stringWithString: [[fileSelector filenames] 
 					      objectAtIndex: 0 ]];
   [self open: [path lastPathComponent]];
 }
+
+-(void) presentSaveMenu: (id)sender
+{
+  NSInteger i = 0, j = 0;
+  NSMutableString *data = [[NSMutableString alloc] init];
+
+  NSLog(@"Presenting Open Panel");
+  NSSavePanel* fileSelector = [NSSavePanel savePanel];
+  [fileSelector setRequiredFileType:@"sudoku"];
+
+  [fileSelector runModal];
+
+  for(; i < 9; i++ )
+  {
+    j = 0;
+    for(; j < 9; j++ )
+    {
+      if( ![[board cellAtRow: i column: j] isEditable] )
+      {
+	[data appendFormat: @"P%i", [[board cellAtRow:i column: j] intValue]];
+      }
+
+      else
+      {
+	[data appendString: @"U"];
+	if ( [[[board cellAtRow: i column: j] stringValue] length] < 1 )
+        {
+	  [data appendString: @"X"];
+	} 
+	else
+	{
+	  [data appendFormat:@"%i", [[board cellAtRow: i column: j] intValue]];
+	}
+      }
+    }
+  }
+
+
+  NSLog(@"Creating file at %@",[fileSelector filename]);
+
+  [[NSFileManager defaultManager] createFileAtPath: [fileSelector filename]
+				  contents: [data dataUsingEncoding: NSASCIIStringEncoding]
+				  attributes: nil];
+
+  RELEASE(data);
+}
+
+
 
 -(NSMenu* ) createMenus
 {
@@ -134,7 +189,7 @@
 	 keyEquivalent: @"o"];
 
    [file addItemWithTitle: @"Save"
-	 action:NULL //@selector (saveGame:)
+	 action: @selector (presentSaveMenu:)
 	 keyEquivalent: @"s"];
 
    difficulty = [NSMenu new];
@@ -234,7 +289,7 @@
       charIndex += 1;
     }
   }
-  [board selectAll:NULL];
+  [board selectAll:nil];
 }
 
 -(void) setUpButtons
