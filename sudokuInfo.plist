@@ -1,0 +1,11 @@
+{
+   ApplicationDescription = "Sudoku Puzzle";
+   ApplicationIcon = "";
+   ApplicationName = Sudoku;
+   ApplicationRelease = 0.1;
+   Authors = "Michael Wisely";
+   Copyright = "Copyright (C) 2009 by Michael Wisely";
+   CopyrightDescription = "";
+   FullVersionID = 0.1;
+   URL = "";
+}
