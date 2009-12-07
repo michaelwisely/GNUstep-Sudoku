@@ -78,6 +78,28 @@
   RELEASE(fileName);
 }
 
+-(void) presentOpenMenu: (id)sender
+{
+  //Currently you must open from the gamefiles folder. is there a way it can
+  //  pull the logs from /Resources instead?
+
+  NSMutableString* path;
+
+  NSLog(@"Presenting Open Panel");
+  NSOpenPanel* fileSelector = [NSOpenPanel openPanel];
+  [fileSelector setAllowsMultipleSelection: NO];
+  [fileSelector setCanChooseFiles: YES];
+  [fileSelector setCanChooseDirectories: NO];
+
+  [fileSelector runModalForDirectory: nil
+		file: nil 
+		types: nil];
+
+  path = [NSMutableString stringWithString: [[fileSelector filenames] 
+					      objectAtIndex: 0 ]];
+  [self open: [path lastPathComponent]];
+}
+
 -(NSMenu* ) createMenus
 {
    NSMenu *menu;
@@ -108,7 +130,7 @@
 	 keyEquivalent: @"n"];
 
    [file addItemWithTitle: @"Open"
-	 action:NULL // @selector(openGame:)
+	 action: @selector(presentOpenMenu:)
 	 keyEquivalent: @"o"];
 
    [file addItemWithTitle: @"Save"
