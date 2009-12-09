@@ -160,7 +160,6 @@
    NSMenu *menu;
    NSMenu *difficulty;
    NSMenu *file;
-   //*current_diff = 0;
 
    menu = [NSMenu new];
    [menu addItemWithTitle: @"File"
