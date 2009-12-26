@@ -25,7 +25,6 @@
 -(void)applicationDidFinishLaunching: (NSNotification *) notification;
 -(NSMenu*) createMenus;
 -(void) open: (NSString*) fileName;
--(void) setUpButtons;
 -(void) loadNewGame: (id)sender;
 -(void) setEasy: (id)sender;
 -(void) setMedium: (id)sender;
