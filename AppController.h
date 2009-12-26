@@ -29,6 +29,7 @@
 -(void) setEasy: (id)sender;
 -(void) setMedium: (id)sender;
 -(void) setHard: (id)sender;
+-(void) solve: (id)sender;
 
 @end
 

@@ -95,6 +95,12 @@
   current_diff = @"expert";
 }
 
+
+-(void) solve: (id) sender
+{
+  [board solvePuzzleBoardStartingAtRow:0 column:0];
+}
+
 -(void) loadNewGame: (id)sender
 {
   srand(time(NULL));
@@ -129,6 +135,10 @@
    [menu addItemWithTitle: @"Hide"
 	 action: @selector(hide:)
 	 keyEquivalent: @"h"];
+
+   [menu addItemWithTitle: @"Solve"
+	 action: @selector(solve:)
+	 keyEquivalent:@""];
 
    [menu addItemWithTitle: @"Quit"
 	 action: @selector(terminate:)
