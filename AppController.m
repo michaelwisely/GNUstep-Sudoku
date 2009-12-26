@@ -3,6 +3,7 @@
 @implementation AppController
 -(void) applicationWillFinishLaunching: (NSNotification *) notification
 {
+  NSSize size;
   [NSApp setMainMenu:[self createMenus]];
 
   window = [[NSWindow alloc] initWithContentRect: NSMakeRect(100, 100, 500, 600)
@@ -13,7 +14,39 @@
                                             defer: YES];
   [window setTitle: @"Sudoku!"];
   
-  [self setUpButtons];
+  easy = [NSButton new];
+  [easy setButtonType:NSRadioButton];
+  [easy setTitle:@"Easy"];
+  [easy setFont:[NSFont labelFontOfSize:36]];
+  [easy sizeToFit];
+  [easy setTarget: self];
+  [easy setAction: @selector(setEasy:)];
+  size = [easy frame].size;
+  [easy setFrame: NSMakeRect(5, 520, size.width, size.height)];
+  [easy setState: 1];
+
+  medium = [NSButton new];
+  [medium setButtonType:NSRadioButton];
+  [medium setTitle:@"Medium"];
+  [medium setFont:[NSFont labelFontOfSize:36]];
+  [medium sizeToFit];
+  [medium setTarget: self];
+  [medium setAction: @selector(setMedium:)];
+  size = [medium frame].size;
+  [medium setFrame: NSMakeRect(180, 520, size.width, size.height)];
+  [medium setState:0];
+
+  hard = [NSButton new];
+  [hard setButtonType:NSRadioButton];
+  [hard setTitle:@"Hard"];
+  [hard setFont:[NSFont labelFontOfSize:36]];
+  [hard sizeToFit];
+  [hard setTarget: self];
+  [hard setAction: @selector(setHard:)];
+  size = [hard frame].size;
+  [hard setFrame: NSMakeRect(400, 520, size.width, size.height)];
+  [hard setState:0];
+
   current_diff = [[NSString alloc] initWithString: @"novice"];
 
   board = [[PuzzleBoard alloc]init];
@@ -22,7 +55,6 @@
   [[window contentView] addSubview: easy];
   [[window contentView] addSubview: medium];
   [[window contentView] addSubview: hard];
-
 }
 
 -(void) applicationDidFinishLaunching: (NSNotification *) notification
@@ -201,44 +233,6 @@
     }
   }
   [board selectAll:NULL];
-}
-
--(void) setUpButtons
-{
-  NSSize size;
-
-  easy = [NSButton new];
-  [easy setButtonType:NSRadioButton];
-  [easy setTitle:@"Easy"];
-  [easy setFont:[NSFont labelFontOfSize:36]];
-  [easy sizeToFit];
-  [easy setTarget: self];
-  [easy setAction: @selector(setEasy:)];
-  size = [easy frame].size;
-  [easy setFrame: NSMakeRect(5, 520, size.width, size.height)];
-  [easy setState: 1];
-
-  medium = [NSButton new];
-  [medium setButtonType:NSRadioButton];
-  [medium setTitle:@"Medium"];
-  [medium setFont:[NSFont labelFontOfSize:36]];
-  [medium sizeToFit];
-  [medium setTarget: self];
-  [medium setAction: @selector(setMedium:)];
-  size = [medium frame].size;
-  [medium setFrame: NSMakeRect(180, 520, size.width, size.height)];
-  [medium setState:0];
-
-  hard = [NSButton new];
-  [hard setButtonType:NSRadioButton];
-  [hard setTitle:@"Hard"];
-  [hard setFont:[NSFont labelFontOfSize:36]];
-  [hard sizeToFit];
-  [hard setTarget: self];
-  [hard setAction: @selector(setHard:)];
-  size = [hard frame].size;
-  [hard setFrame: NSMakeRect(400, 520, size.width, size.height)];
-  [hard setState:0];
 }
 
 -(void) dealloc
