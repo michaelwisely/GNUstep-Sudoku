@@ -166,8 +166,7 @@
     for(; j < 9; j++ )
     {
       temp = [data characterAtIndex: charIndex ];
-      //checks to see if the character is a P. P’s are puzzle defined
-      //and can not be changed by the user.
+      //P's are puzzle defined
       if( temp == 'P' )
       {
 	charIndex += 1;
@@ -175,12 +174,7 @@
         //disable the users ability to write or edit that box.
         temp = [data characterAtIndex: charIndex];
 	[[board cellAtRow: i column:j] setStringValue: [NSString stringWithFormat: @"%c", temp]];
-	//puzzleBoard->puzzleBox( i, j )->setText( character );
-        //QPalette p = puzzleBoard->puzzleBox( i, j )->palette();
-        //p.setColor( QPalette::Text, QColor( Qt::darkGray ) );
-        //puzzleBoard->puzzleBox( i, j )->setPalette( p );
         [[board cellAtRow:i column:j] setEditable: NO];
-	//puzzleBoard->puzzleBox( i, j )->setReadOnly( true );
       }
 
       else
@@ -192,22 +186,16 @@
         if( temp == 'X' )
         {
 	  [[board cellAtRow:i column:j] setStringValue: @""];
-          //puzzleBoard->puzzleBox( i, j )->clear();
         }
         //otherwise, place the users number into the square
         else
         {
 	  [[board cellAtRow:i column:j] setStringValue: [NSString stringWithFormat: @"%c", temp]];
-          //puzzleBoard->puzzleBox( i, j )->setText( character );
         }
-        //QPalette p = puzzleBoard->puzzleBox( i, j )->palette();
-        //p.setColor( QPalette::Text, QColor( Qt::black ) );
-        //puzzleBoard->puzzleBox( i, j )->setPalette( p );
-	if (![[board cellAtRow:i column:j] isEditable])
+ 	if (![[board cellAtRow:i column:j] isEditable])
 	{
 	  [[board cellAtRow:i column:j] setEditable: YES];
 	}
-        //puzzleBoard->puzzleBox( i, j )->setReadOnly( false );
       }
       charIndex += 1;
     }
@@ -224,38 +212,30 @@
   [easy setTitle:@"Easy"];
   [easy setFont:[NSFont labelFontOfSize:36]];
   [easy sizeToFit];
-
   [easy setTarget: self];
   [easy setAction: @selector(setEasy:)];
-
   size = [easy frame].size;
   [easy setFrame: NSMakeRect(5, 520, size.width, size.height)];
   [easy setState: 1];
-
 
   medium = [NSButton new];
   [medium setButtonType:NSRadioButton];
   [medium setTitle:@"Medium"];
   [medium setFont:[NSFont labelFontOfSize:36]];
   [medium sizeToFit];
-
   [medium setTarget: self];
   [medium setAction: @selector(setMedium:)];
-
   size = [medium frame].size;
   [medium setFrame: NSMakeRect(180, 520, size.width, size.height)];
   [medium setState:0];
-
 
   hard = [NSButton new];
   [hard setButtonType:NSRadioButton];
   [hard setTitle:@"Hard"];
   [hard setFont:[NSFont labelFontOfSize:36]];
   [hard sizeToFit];
-
   [hard setTarget: self];
   [hard setAction: @selector(setHard:)];
-
   size = [hard frame].size;
   [hard setFrame: NSMakeRect(400, 520, size.width, size.height)];
   [hard setState:0];
