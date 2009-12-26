@@ -184,6 +184,13 @@
   [path appendFormat: @"/Resources/%@", fileName];
  
   readHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+
+  if (readHandle == nil)
+  {
+    [NSException raise:@"Invalid Path" 
+		 format:@"The file you wish to open is not at %@", path];
+  }
+
   rawData = [readHandle readDataToEndOfFile];
   
   data=[[NSString alloc]initWithData:rawData encoding:NSASCIIStringEncoding];
