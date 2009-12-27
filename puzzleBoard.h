@@ -9,6 +9,7 @@
 }
 
 -(id) init;
+-(void) clear;
 -(BOOL) solvePuzzleBoardStartingAtRow:(NSInteger) row column:(NSInteger) column;
 -(BOOL) iCanPut:(NSInteger)value atRow:(NSInteger)row column:(NSInteger)column;
 -(BOOL) checkSubSquareatRow:(NSInteger)row column:(NSInteger)column digit:(NSInteger)digit;

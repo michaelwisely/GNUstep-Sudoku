@@ -23,11 +23,28 @@
   return self;
 }
 
+-(void) clear
+{
+  NSInteger i=0, j=0;
+  for(; i < 9; i+=1)
+  {
+    for(;j < 9; j+=1)
+    {
+      if([[self cellAtRow:i column:j]isEditable])
+      {
+	[[self cellAtRow:i column:j] setStringValue:@""];
+      }
+    }
+  }
+}
+
 -(BOOL) solvePuzzleBoardStartingAtRow:(NSInteger) row column:(NSInteger) column
 {
   NSInteger i = 1;
 
-  while(![[self cellAtRow:row column:column] isEditable])
+  while(![[self cellAtRow:row column:column] isEditable] &&
+	column < 9 && 
+	row < 9)
   {
     if(column < 8)
     {
@@ -49,7 +66,7 @@
   {
     if([self iCanPut:i atRow:row column:column])
     {
-      [[self cellAtRow:row column:column] setStringValue:[NSString stringWithFormat:@"%c", i]];
+      [[self cellAtRow:row column:column] setStringValue:[NSString stringWithFormat:@"%i", i]];
 
       if(column < 8)
       {
@@ -69,7 +86,7 @@
   }
   if([[self cellAtRow:row column:column] isEditable])
   {
-    [[self cellAtRow:row column:column] setStringValue:[NSString stringWithString:@"0"]];
+    [[self cellAtRow:row column:column] setStringValue:@""];
   }
   return NO;
 }
@@ -96,7 +113,6 @@
   NSInteger columnIndex = (column/3)*3;
   NSInteger columnStop = columnIndex+3;
   NSInteger columnTemp;
-  NSInteger temp=0;
   BOOL ret_val = YES;
 
   for(; rowIndex<rowStop; rowIndex+=1)
@@ -104,8 +120,7 @@
     columnTemp = columnIndex;
     for(; columnTemp<columnStop; columnTemp++)
     {
-      temp = [[self cellAtRow:rowIndex column:columnTemp]integerValue];
-      if(temp == digit)
+      if([[self cellAtRow:rowIndex column:columnTemp]intValue] == digit)
       {
         ret_val = NO;
       }
@@ -122,7 +137,7 @@
 
   for (; i<9; i+=1)
   {
-    if([[self cellAtRow:row column:i]integerValue] == digit)
+    if([[self cellAtRow:row column:i]intValue] == digit)
     {
       ret_val = NO;
     }
@@ -138,7 +153,7 @@
 
   for (; i<9; i+=1)
   {
-    if([[self cellAtRow:i column:column]integerValue] == digit)
+    if([[self cellAtRow:i column:column]intValue] == digit)
     {
       ret_val = NO;
     }

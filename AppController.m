@@ -1,6 +1,7 @@
 #include "AppController.h"
 
 @implementation AppController
+
 -(void) applicationWillFinishLaunching: (NSNotification *) notification
 {
   NSSize size;
@@ -13,6 +14,8 @@
                                           backing: NSBackingStoreBuffered
                                             defer: YES];
   [window setTitle: @"Sudoku!"];
+  [window setMaxSize: NSMakeSize(500,600)];
+  [window setMinSize: NSMakeSize(500,600)];
   
   easy = [NSButton new];
   [easy setButtonType:NSRadioButton];
@@ -98,7 +101,9 @@
 
 -(void) solve: (id) sender
 {
+  [board clear];
   [board solvePuzzleBoardStartingAtRow:0 column:0];
+  [board selectAll:nil];
 }
 
 -(void) loadNewGame: (id)sender
@@ -198,7 +203,8 @@
   
   path = [[NSMutableString alloc]init];
   [path appendString: [[NSFileManager defaultManager] currentDirectoryPath]];
-  [path appendFormat: @"/Resources/%@", fileName];
+  [path appendFormat: @"/gameFiles/%@", fileName];
+  //"gameFiles" is for debug purposes, it should otherwise be @"/Resources/%@"
  
   readHandle = [NSFileHandle fileHandleForReadingAtPath:path];
 
