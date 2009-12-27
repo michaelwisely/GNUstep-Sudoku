@@ -105,7 +105,14 @@
   
   NSLog(@"Opening %@", fileName);
 
-  [self open:fileName];
+  @try
+  {
+    [self open:fileName];
+  }
+  @catch(NSException *e)
+  {
+    NSLog(@"%@ \n%@", [e name], [e reason]);
+  }
 
   RELEASE(fileName);
 }
