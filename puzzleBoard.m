@@ -3,6 +3,12 @@
 
 @implementation PuzzleBoard
 
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -init
+/// @brief initializes the board with all editable cells with specific format
+/// @pre none
+/// @post a new PuzzleBoard object is initialized
+////////////////////////////////////////////////////////////////////////////////
 -(id) init
 {
   NSCell* tempCell = [[NSCell alloc] initTextCell: @""];
@@ -23,6 +29,12 @@
   return self;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -clear
+/// @brief iterates a PuzzleBoard, clearing every user-editable space
+/// @pre none
+/// @post the PuzzleBoard shows only game entries.
+////////////////////////////////////////////////////////////////////////////////
 -(void) clear
 {
   NSInteger i=0, j=0;
@@ -38,6 +50,14 @@
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -solvePuzzleBoardStartingAtRow:(NSInteger) row column:(NSInteger) column
+/// @brief a recursive method which solves the puzzleboard
+/// @pre none
+/// @post the puzzleboard is solved!
+/// @param row, column = 0,0 to properly solve
+/// @return a boolean which signifies if the puzzle was solved or not
+////////////////////////////////////////////////////////////////////////////////
 -(BOOL) solvePuzzleBoardStartingAtRow:(NSInteger) row column:(NSInteger) column
 {
   NSInteger i = 1;
@@ -64,7 +84,7 @@
 
   for(; i<10; i++)
   {
-    if([self iCanPut:i atRow:row column:column])
+    if([self canIPut:i atRow:row column:column])
     {
       [[self cellAtRow:row column:column] setStringValue:[NSString stringWithFormat:@"%i", i]];
 
@@ -91,7 +111,16 @@
   return NO;
 }
 
--(BOOL) iCanPut:(NSInteger)value atRow:(NSInteger)row column:(NSInteger)column
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -canIPut:(NSInteger)value 
+///      atRow:(NSInteger)row 
+///      column:(NSInteger)column
+/// @brief determines if value can be placed at the specified row and column
+/// @param row, column, values are NSIntegers representing the requested 
+///        row and column, as well as the value which is attempted to place
+/// @return a boolean which signifies whether the value can be placed there
+////////////////////////////////////////////////////////////////////////////////
+-(BOOL) canIPut:(NSInteger)value atRow:(NSInteger)row column:(NSInteger)column
 {
   BOOL ret_val = NO;
 
@@ -105,7 +134,16 @@
   return ret_val;
 
 }
-
+ 
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -checkSubSquareatRow:(NSInteger)row 
+///      column:(NSInteger)column 
+///      digit:(NSInteger)digit
+/// @brief determines if value can be placed in the specified sub-square
+/// @param row, column, values are NSIntegers representing the requested 
+///        row and column, as well as the value which is attempted to place
+/// @return a boolean which signifies whether the value can be placed there
+////////////////////////////////////////////////////////////////////////////////
 -(BOOL) checkSubSquareatRow:(NSInteger)row column:(NSInteger)column digit:(NSInteger)digit
 {
   NSInteger rowIndex = (row/3)*3;
@@ -130,6 +168,14 @@
   return ret_val;
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -checkRow:(NSInteger)row digit:(NSInteger)digit
+/// @brief determines if value can be placed in the specified row
+/// @param row and values are NSIntegers representing the requested row and 
+///        the value which is attempted to place
+/// @return a boolean which signifies whether the value can be placed there
+////////////////////////////////////////////////////////////////////////////////
 -(BOOL) checkRow:(NSInteger)row digit:(NSInteger)digit
 {
   BOOL ret_val = YES;
@@ -146,6 +192,13 @@
   return ret_val;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+/// @fn -checkColumn:(NSInteger)column digit:(NSInteger)digit
+/// @brief determines if value can be placed in the specified row
+/// @param column and values are NSIntegers representing the requested column and 
+///        the value which is attempted to place
+/// @return a boolean which signifies whether the value can be placed there
+////////////////////////////////////////////////////////////////////////////////
 -(BOOL) checkColumn:(NSInteger)column digit:(NSInteger)digit
 {
   BOOL ret_val = YES;
