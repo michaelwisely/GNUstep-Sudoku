@@ -1,3 +1,5 @@
+GNUSTEP_MAKEFILES ?= /usr/share/GNUstep/Makefiles
+
 include $(GNUSTEP_MAKEFILES)/common.make
 
 APP_NAME = Sudoku
