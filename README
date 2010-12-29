@@ -1,7 +1,8 @@
 Sudoku! is a simple sudoku game written in Objective-C using the GNUStep 
 libraries.
 
-If you're getting errors like these...
+If you are using the libgnustep-art gui back and are getting errors 
+like these...
 
 2010-12-29 13:26:34.672 Gorm[3580] The font specified for NSFont, FreeSans, can't be found.
 2010-12-29 13:26:34.672 Gorm[3580] Font not found FreeSans
@@ -13,8 +14,8 @@ If you're getting errors like these...
 2010-12-29 13:26:34.672 Gorm[3580] The font specified ...
 
 you have to create some .nfonts for GNUstep. In the ubuntu software repos, 
-there's a took named mknfonts.tool which reads .ttf fonts (among others) and
-turns them into .nfont files. To make your fonts, do something like...
+there's a tool named mknfonts.tool which reads .ttf font files (among others) 
+and turns them into .nfont files. To make your .nfonts, do something like...
 
       ## Make the fonts and leave them in the Fonts directory
       cd /usr/share/GNUstep/Fonts
